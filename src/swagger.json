@@ -1,0 +1,91 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Hello": {
+				"properties": {
+					"greeting": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"greeting"
+				],
+				"type": "object"
+			},
+			"Optional_string_": {
+				"type": "string"
+			},
+			"APIError": {
+				"properties": {
+					"Error": {
+						"$ref": "#/components/schemas/Optional_string_"
+					}
+				},
+				"required": [
+					"Error"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AsyncAPIResult_Hello-Array_": {
+				"anyOf": [
+					{
+						"items": {
+							"$ref": "#/components/schemas/Hello"
+						},
+						"type": "array"
+					},
+					{
+						"$ref": "#/components/schemas/APIError"
+					}
+				]
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "backend-template",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "git.gdario@gmail.com"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/hellos": {
+			"get": {
+				"operationId": "GetHellos",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AsyncAPIResult_Hello-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Hellos"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
